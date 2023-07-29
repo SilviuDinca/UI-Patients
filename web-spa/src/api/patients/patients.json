@@ -1,0 +1,32 @@
+[
+    {
+        "lastName": "Eminescu",
+        "firstName": "Mihai",
+        "age": 28,
+        "gender": "M"
+    },
+    {
+        "lastName": "Creanga",
+        "firstName": "Ion",
+        "age": 25,
+        "gender": "M"
+    },
+    {
+        "lastName": "Dumitrascu",
+        "firstName": "Cosmin",
+        "age": 28,
+        "gender": "M"
+    },
+    {
+        "lastName": "Dinoiu",
+        "firstName": "Estera",
+        "age": 28,
+        "gender": "F"
+    },
+    {
+        "lastName": "Florea",
+        "firstName": "Rebeca",
+        "age": 28,
+        "gender": "F"
+    }
+]

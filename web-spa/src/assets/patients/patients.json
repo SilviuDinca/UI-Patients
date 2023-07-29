@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "lastName": "Eminescu",
+        "fatherInitial": "S",
+        "firstName": "Mihai",
+        "birthday":"15 ianuarie 1850",
+        "phoneNumber": "0244045098",
+        "address": {
+            "street": "Roma",
+            "numberStreet": 5,
+            "building": "2A",
+            "floor": 3,
+            "apartment": 28,
+            "county": "Suceava",
+            "city": "Suceava"
+        },
+        "age": 28,
+        "gender": "M",
+        "cnp": "5000234900242"
+    },
+    {
+        "id": 2,
+        "lastName": "Creanga",
+        "fatherInitial": "V ",
+        "firstName": "Ion",
+        "birthday":"1 martie 1837",
+        "phoneNumber": "0232456598",
+        "address": {
+            "street": "Madrid",
+            "numberStreet": 15,
+            "building": 3,
+            "floor": 1,
+            "apartment": 2,
+            "county": "Suceava",
+            "city": "Suceava"
+        },
+        "age": 25,
+        "gender": "M",
+        "cnp": "5000345646456"
+    },
+    {
+        "id": 3,
+        "lastName": "Dumitrascu",
+        "fatherInitial": "A",
+        "firstName": "Cosmin",
+        "birthday":"15 iunie 2010",
+        "phoneNumber": "0265345234",
+        "address": {
+            "street": "1 Mai",
+            "numberStreet": 10,
+            "building": 6,
+            "floor": 2,
+            "apartment": 12,
+            "county": "Prahova",
+            "city": "Ploiesti"
+        },
+        "age": 28,
+        "gender": "M",
+        "cnp": "5000123234321"
+    },
+    {
+        "id": 4,
+        "lastName": "Dinoiu",
+        "fatherInitial": "E",
+        "firstName": "Estera",
+        "birthday":"11 noiembrie 2003",
+        "phoneNumber": "0755345242",
+        "address": {
+            "street": "Eminescu",
+            "numberStreet": 20,
+            "building": "M111",
+            "floor": 2,
+            "apartment":13,
+            "county": "Prahova",
+            "city": "Sinaia"
+        },
+        "age": 28,
+        "gender": "F",
+        "cnp": "2000435334534"
+    },
+    {
+        "id": 5,
+        "lastName": "Florea",
+        "fatherInitial": "I",
+        "firstName": "Rebeca",
+        "birthday":"21 februarie 1950",
+        "phoneNumber": "0244042538",
+        "address": {
+            "street": "Balcescu",
+            "numberStreet": 2,
+            "building": 3,
+            "floor": 5,
+            "apartment": 23,
+            "county": "Prahova",
+            "city": "Busteni"
+        },
+        "age": 28,
+        "gender": "F",
+        "cnp": "2000353534334"
+    }
+]
