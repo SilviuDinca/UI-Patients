@@ -26,7 +26,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="editPatient" (ngSubmit)="onSubmit()">
+        <form [formGroup]="editPatient" (ngSubmit)="setPatient()">
           <div class="mb-3 d-none">
             <label for="id" class="col-form-label">Id</label>
             <input

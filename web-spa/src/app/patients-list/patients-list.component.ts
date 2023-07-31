@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PatientsService } from '../patients.service';
+import { PatientsService } from '../DAL.service';
 import { IPatients } from '../IPatients';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
@@ -33,7 +33,7 @@ export class PatientsListComponent implements OnInit, OnChanges {
     return this.patients.filter((patient: IPatients) => patient.lastName.toLocaleLowerCase().includes(filterBy) || patient.firstName.toLocaleLowerCase().includes(filterBy) || patient.cnp.toLocaleLowerCase().includes(filterBy))
   }
 
-  delete(key: number) {
+  deletePatient(key: number) {
     this.filteredPatients.forEach((value, index) => {
       if (value.id == key) this.filteredPatients.splice(index, 1)
     })
@@ -50,7 +50,7 @@ export class PatientsListComponent implements OnInit, OnChanges {
       'fatherInitial': new FormControl(null),
       'firstName': new FormControl(null),
       'birthday': new FormControl(null),
-      'phoneNumber': new FormControl(null),
+      'phoneNumber': new FormControl(null, Validators.pattern("[0][237][0-9]{8}")),
       'address': new FormGroup({
         'street': new FormControl(null),
         'numberStreet': new FormControl(null),
@@ -82,9 +82,7 @@ export class PatientsListComponent implements OnInit, OnChanges {
     })
   }
 
-  getDetails(id: number) {
-    console.log(this.patientDetail);
-
+  getPatient(id: number) {
     this.patientDetail = this.patients.filter(a => a.id === id)
   }
 

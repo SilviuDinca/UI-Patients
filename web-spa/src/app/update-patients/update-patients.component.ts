@@ -61,18 +61,13 @@ export class UpdatePatientsComponent implements OnInit, OnChanges {
       cnp: this.patientDetail[0].cnp,
     })
   }
-  onSubmit() {
+  setPatient() {
     this.btnUpdate.emit(this.editPatient.value)
     this.updatePatient(this.editPatient.value)
   }
 
   updatePatient(updatedPatient: IPatients) {
     const patientToUpdate = this.patients.map(patient => patient.id).indexOf(updatedPatient.id)
-
     this.patients[patientToUpdate] = updatedPatient
-    console.log(updatedPatient);
-
-    console.log(patientToUpdate);
-
   }
 }
