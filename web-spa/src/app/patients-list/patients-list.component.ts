@@ -68,7 +68,6 @@ export class PatientsListComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-
     this.addOnePatient(this.addPatient.value)
     this.addPatient.reset()
   }
@@ -91,6 +90,4 @@ export class PatientsListComponent implements OnInit, OnChanges {
   addOnePatient(patient: IPatients) {
     this.patients.push(patient)
   }
-
-
 }
