@@ -12,250 +12,47 @@
         Add Patient
       </button>
     </div>
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title" id="exampleModalLabel">Add a Patient</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form [formGroup]="addPatient" (ngSubmit)="onSubmit()">
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  formControlName="lastName"
-                  class="form-control"
-                  onkeydown="return /[a-z, ,-]/i.test(event.key)"
-                  id="lastName"
-                />
-                <label for="lastName" class="col-form-label">LastName</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  formControlName="fatherInitial"
-                  class="form-control"
-                  id="father-initial"
-                  style="text-transform: uppercase"
-                  maxlength="3"
-                  onkeydown="return /[A-Z]/i.test(event.key)"
-                />
-                <label for="father-initial" class="col-form-label"
-                  >Father Initial</label
-                >
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  formControlName="firstName"
-                  onkeydown="return /[a-z, ,-]/i.test(event.key)"
-                  class="form-control"
-                  id="firstName"
-                />
-                <label for="firstName" class="col-form-label">FirstName</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  formControlName="birthday"
-                  class="form-control"
-                  id="birthday"
-                />
-                <label for="birthday" class="col-form-label">Birthday</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="number"
-                  formControlName="phoneNumber"
-                  class="form-control"
-                  onKeyPress="if(this.value.length==10) return false; "
-                  id="phone-number"
-                />
-                <label for="phone-number" class="col-form-label"
-                  >Phone Number</label
-                >
-              </div>
-              <div formGroupName="address">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="text"
-                        onkeydown="return /[a-z, ,-,.]/i.test(event.key)"
-                        formControlName="street"
-                        class="form-control"
-                        id="street"
-                      />
-                      <label for="street" class="col-form-label"
-                        >Address Street</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="number"
-                        formControlName="numberStreet"
-                        class="form-control"
-                        id="numberStreet"
-                      />
-                      <label for="numberStreet" class="col-form-label"
-                        >Number of Street</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="text"
-                        formControlName="building"
-                        class="form-control"
-                        id="building"
-                      />
-                      <label for="building" class="col-form-label"
-                        >Building</label
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="number"
-                        formControlName="floor"
-                        class="form-control"
-                        id="floor"
-                        onKeyPress="if(this.value.length==2) return false;"
-                      />
-                      <label for="floor" class="col-form-label">Floor</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="number"
-                        onKeyPress="if(this.value.length==4) return false;"
-                        formControlName="apartment"
-                        class="form-control"
-                        id="apartment"
-                      />
-                      <label for="apartment" class="col-form-label"
-                        >Apartment</label
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="text"
-                        formControlName="county"
-                        class="form-control"
-                        id="county"
-                      />
-                      <label for="county" class="col-form-label">County</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="text"
-                        formControlName="city"
-                        class="form-control"
-                        id="city"
-                        onkeydown="return /[a-z, ,-]/i.test(event.key)"
-                      />
-                      <label for="city" class="col-form-label">City</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="number"
-                  onKeyPress="if(this.value.length==3) return false;"
-                  formControlName="age"
-                  class="form-control"
-                  id="age"
-                />
-                <label for="age" class="col-form-label">Age</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  maxlength="1"
-                  onkeyup="this.value = this.value.replace(/[^F/M]/, '')"
-                  formControlName="gender"
-                  class="form-control"
-                  id="gender"
-                />
-                <label for="gender" class="col-form-label"
-                  >Gender: F or M</label
-                >
-                <span
-                  class="help-block text-danger"
-                  *ngIf="
-                    !addPatient.get('gender').valid &&
-                    addPatient.get('gender').touched
-                  "
-                >
-                  Please complete this field!!
-                </span>
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  formControlName="cnp"
-                  maxlength="13"
-                  class="form-control"
-                  id="cnp"
-                />
-                <label for="cnp" class="col-form-label">CNP</label>
-              </div>
-              <div class="form-floating mb-3">
-                <textarea
-                  class="form-control"
-                  formControlName="message"
-                  id="message-text"
-                ></textarea>
-                <label for="message-text" class="col-form-label"
-                  >Message:</label
-                >
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  data-bs-dismiss="modal"
-                  [disabled]="addPatient.get('gender').invalid"
-                >
-                  Send message
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+    <h4 class="text-muted">Sort by:</h4>
+    <div class="row my-3">
+      <div class="col-xl-3">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="sortByAge()"
+        >
+          <i class="fa fa-sort-desc" aria-hidden="true"></i>
+          Age
+        </button>
+      </div>
+      <div class="col-xl-3">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="sortByLastName()"
+        >
+          <i class="fa fa-sort-desc" aria-hidden="true"></i>
+          LastName
+        </button>
+      </div>
+      <div class="col-xl-3">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="sortByFirstName()"
+        >
+          <i class="fa fa-sort-desc" aria-hidden="true"></i>
+          FirstName
+        </button>
+      </div>
+      <div class="col-xl-3">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="sortByGender()"
+        >
+          <i class="fa fa-sort-desc" aria-hidden="true"></i>
+          Gender
+        </button>
       </div>
     </div>
     <div class="form-floating my-3">
@@ -309,6 +106,7 @@
     ></app-patients-details>
   </div>
 </div>
+<!-- Modal QR Code -->
 <div
   class="modal fade"
   id="exampleModal1"
@@ -342,6 +140,247 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal add patient -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Add a Patient</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addPatient" (ngSubmit)="onSubmit()">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              formControlName="lastName"
+              class="form-control"
+              onkeydown="return /[a-z, ,-]/i.test(event.key)"
+              id="lastName"
+            />
+            <label for="lastName" class="col-form-label">LastName</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              formControlName="fatherInitial"
+              class="form-control"
+              id="father-initial"
+              style="text-transform: uppercase"
+              maxlength="3"
+              onkeydown="return /[A-Z]/i.test(event.key)"
+            />
+            <label for="father-initial" class="col-form-label"
+              >Father Initial</label
+            >
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              formControlName="firstName"
+              onkeydown="return /[a-z, ,-]/i.test(event.key)"
+              class="form-control"
+              id="firstName"
+            />
+            <label for="firstName" class="col-form-label">FirstName</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              formControlName="birthday"
+              class="form-control"
+              id="birthday"
+            />
+            <label for="birthday" class="col-form-label">Birthday</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="number"
+              formControlName="phoneNumber"
+              class="form-control"
+              onKeyPress="if(this.value.length==10) return false; "
+              id="phone-number"
+            />
+            <label for="phone-number" class="col-form-label"
+              >Phone Number</label
+            >
+          </div>
+          <div formGroupName="address">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    onkeydown="return /[a-z, ,-,.]/i.test(event.key)"
+                    formControlName="street"
+                    class="form-control"
+                    id="street"
+                  />
+                  <label for="street" class="col-form-label"
+                    >Address Street</label
+                  >
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    formControlName="numberStreet"
+                    class="form-control"
+                    id="numberStreet"
+                  />
+                  <label for="numberStreet" class="col-form-label"
+                    >Number of Street</label
+                  >
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="building"
+                    class="form-control"
+                    id="building"
+                  />
+                  <label for="building" class="col-form-label">Building</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    formControlName="floor"
+                    class="form-control"
+                    id="floor"
+                    onKeyPress="if(this.value.length==2) return false;"
+                  />
+                  <label for="floor" class="col-form-label">Floor</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    onKeyPress="if(this.value.length==4) return false;"
+                    formControlName="apartment"
+                    class="form-control"
+                    id="apartment"
+                  />
+                  <label for="apartment" class="col-form-label"
+                    >Apartment</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="county"
+                    class="form-control"
+                    id="county"
+                  />
+                  <label for="county" class="col-form-label">County</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="city"
+                    class="form-control"
+                    id="city"
+                    onkeydown="return /[a-z, ,-]/i.test(event.key)"
+                  />
+                  <label for="city" class="col-form-label">City</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="number"
+              onKeyPress="if(this.value.length==3) return false;"
+              formControlName="age"
+              class="form-control"
+              id="age"
+            />
+            <label for="age" class="col-form-label">Age</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              maxlength="1"
+              onkeyup="this.value = this.value.replace(/[^F/M]/, '')"
+              formControlName="gender"
+              class="form-control"
+              id="gender"
+            />
+            <label for="gender" class="col-form-label">Gender: F or M</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                !addPatient.get('gender').valid &&
+                addPatient.get('gender').touched
+              "
+            >
+              Please complete this field!!
+            </span>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              formControlName="cnp"
+              maxlength="13"
+              class="form-control"
+              id="cnp"
+            />
+            <label for="cnp" class="col-form-label">CNP</label>
+          </div>
+          <div class="form-floating mb-3">
+            <textarea
+              class="form-control"
+              formControlName="message"
+              id="message-text"
+            ></textarea>
+            <label for="message-text" class="col-form-label">Message:</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [disabled]="addPatient.get('gender').invalid"
+            >
+              Send message
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -65,6 +65,7 @@ export class PatientsListComponent implements OnInit, OnChanges {
       'cnp': new FormControl(null),
       'message': new FormControl(null)
     })
+    this.sortByAge()
   }
 
   onSubmit() {
@@ -89,5 +90,29 @@ export class PatientsListComponent implements OnInit, OnChanges {
 
   addOnePatient(patient: IPatients) {
     this.patients.push(patient)
+  }
+
+  sortByLastName() {
+    this.patients.sort((firstLastName, secondLastName) => {
+      return firstLastName.lastName > secondLastName.lastName ? 1 : -1
+    })
+  }
+
+  sortByFirstName() {
+    this.patients.sort((a, b) => {
+      return a.firstName > b.firstName ? 1 : -1
+    })
+  }
+
+  sortByAge() {
+    this.patients.sort((firstAge, secondAge) => {
+      return firstAge.age - secondAge.age
+    })
+  }
+
+  sortByGender() {
+    this.patients.sort((firstGender, secondGender) => {
+      return firstGender.gender > secondGender.gender ? 1 : -1
+    })
   }
 }
