@@ -1,102 +1,177 @@
 [
-    {
-        "id": 1,
-        "lastName": "Eminescu",
-        "fatherInitial": "S",
-        "firstName": "Mihai",
-        "birthday":"15 ianuarie 1850",
-        "phoneNumber": "0244045098",
-        "address": {
-            "street": "Roma",
-            "numberStreet": 5,
-            "building": "2A",
-            "floor": 3,
-            "apartment": 28,
-            "county": "Suceava",
-            "city": "Suceava"
-        },
-        "age": 28,
-        "gender": "M",
-        "cnp": "5000234900242"
+  {
+    "id": "B821ECCD-E163-4B2F-8BBA-0E4A3475BA6E",
+    "lastName": "Eminescu",
+    "fatherInitial": "S",
+    "firstName": "Mihai",
+    "birthday": "15 ianuarie 1850",
+    "listPhone": {
+      "name": {
+        "name": "Office"
+      }
     },
-    {
-        "id": 2,
-        "lastName": "Creanga",
-        "fatherInitial": "V ",
-        "firstName": "Ion",
-        "birthday":"1 martie 1837",
-        "phoneNumber": "0232456598",
-        "address": {
-            "street": "Madrid",
-            "numberStreet": 15,
-            "building": 3,
-            "floor": 1,
-            "apartment": 2,
-            "county": "Suceava",
-            "city": "Suceava"
-        },
-        "age": 25,
-        "gender": "M",
-        "cnp": "5000345646456"
+    "phoneNumber": "0244045098",
+    "addressHome": {
+      "street": "Roma",
+      "numberStreet": 5,
+      "building": "2A",
+      "floor": 3,
+      "apartment": 28,
+      "county": "Suceava",
+      "city": "Suceava"
     },
-    {
-        "id": 3,
-        "lastName": "Dumitrascu",
-        "fatherInitial": "A",
-        "firstName": "Cosmin",
-        "birthday":"15 iunie 2010",
-        "phoneNumber": "0265345234",
-        "address": {
-            "street": "1 Mai",
-            "numberStreet": 10,
-            "building": 6,
-            "floor": 2,
-            "apartment": 12,
-            "county": "Prahova",
-            "city": "Ploiesti"
-        },
-        "age": 28,
-        "gender": "M",
-        "cnp": "5000123234321"
+    "residenceAddress": {
+      "residenceCheck": false,
+      "residenceStreet": "Milan",
+      "residenceNumberStreet": 15,
+      "residenceBuilding": "2A",
+      "residenceFloor": 1,
+      "residenceApartment": 3,
+      "residenceCounty": "Iasi",
+      "residenceCity": "Iasi"
     },
-    {
-        "id": 4,
-        "lastName": "Dinoiu",
-        "fatherInitial": "E",
-        "firstName": "Estera",
-        "birthday":"11 noiembrie 2003",
-        "phoneNumber": "0755345242",
-        "address": {
-            "street": "Eminescu",
-            "numberStreet": 20,
-            "building": "M111",
-            "floor": 2,
-            "apartment":13,
-            "county": "Prahova",
-            "city": "Sinaia"
-        },
-        "age": 28,
-        "gender": "F",
-        "cnp": "2000435334534"
+    "age": 28,
+    "gender": "Male",
+    "cnp": "5000234900242"
+  },
+  {
+    "id": "2",
+    "lastName": "Creanga",
+    "fatherInitial": "V ",
+    "firstName": "Ion",
+    "birthday": "1 martie 1837",
+    "listPhone": {
+      "name": {
+        "name": "Personal"
+      }
     },
-    {
-        "id": 5,
-        "lastName": "Florea",
-        "fatherInitial": "I",
-        "firstName": "Rebeca",
-        "birthday":"21 februarie 1950",
-        "phoneNumber": "0244042538",
-        "address": {
-            "street": "Balcescu",
-            "numberStreet": 2,
-            "building": 3,
-            "floor": 5,
-            "apartment": 23,
-            "county": "Prahova",
-            "city": "Busteni"
-        },
-        "age": 28,
-        "gender": "F",
-        "cnp": "2000353534334"
-    }
+    "phoneNumber": "0232456598",
+    "addressHome": {
+      "street": "Madrid",
+      "numberStreet": 15,
+      "building": 3,
+      "floor": 1,
+      "apartment": 2,
+      "county": "Suceava",
+      "city": "Suceava"
+    },
+    "residenceAddress": {
+      "residenceCheck": false,
+      "residenceStreet": "Mallorca",
+      "residenceNumberStreet": 15,
+      "residenceBuilding": "4A",
+      "residenceFloor": 3,
+      "residenceApartment": 23,
+      "residenceCounty": "Brasov",
+      "residenceCity": "Brasov"
+    },
+    "age": 25,
+    "gender": "Male",
+    "cnp": "5000345646456"
+  },
+  {
+    "id": "3",
+    "lastName": "Dumitrascu",
+    "fatherInitial": "A",
+    "firstName": "Cosmin",
+    "birthday": "15 iunie 2010",
+    "listPhone": {
+      "name": {
+        "name": "Personal"
+      }
+    },
+    "phoneNumber": "0265345234",
+    "addressHome": {
+      "street": "1 Mai",
+      "numberStreet": 10,
+      "building": 6,
+      "floor": 2,
+      "apartment": 12,
+      "county": "Prahova",
+      "city": "Ploiesti"
+    },
+    "residenceAddress": {
+      "residenceCheck": false,
+      "residenceStreet": "Democratiei",
+      "residenceNumberStreet": 25,
+      "residenceBuilding": "1",
+      "residenceFloor": 5,
+      "residenceApartment": 44,
+      "residenceCounty": "Ilfov",
+      "residenceCity": "Balotesti"
+    },
+    "age": 28,
+    "gender": "Male",
+    "cnp": "5000123234321"
+  },
+  {
+    "id": "4",
+    "lastName": "Dinoiu",
+    "fatherInitial": "E",
+    "firstName": "Estera",
+    "birthday": "11 noiembrie 2003",
+    "listPhone": {
+      "name": {
+        "name": "Home"
+      }
+    },
+    "phoneNumber": "0755345242",
+    "addressHome": {
+      "street": "Eminescu",
+      "numberStreet": 20,
+      "building": "M111",
+      "floor": 2,
+      "apartment": 13,
+      "county": "Prahova",
+      "city": "Sinaia"
+    },
+    "residenceAddress": {
+      "residenceCheck": false,
+      "residenceStreet": "Siret",
+      "residenceNumberStreet": 54,
+      "residenceBuilding": "1",
+      "residenceFloor": 6,
+      "residenceApartment": 54,
+      "residenceCounty": "Brasov",
+      "residenceCity": "Codlea"
+    },
+    "age": 28,
+    "gender": "Female",
+    "cnp": "2000435334534"
+  },
+  {
+    "id": "BA64EAC5-AD56-4F25-AF31-1A22260549C2",
+    "lastName": "Florea",
+    "fatherInitial": "I",
+    "firstName": "Rebeca",
+    "birthday": "21 februarie 1950",
+    "listPhone": {
+      "name": {
+        "name": "Emergency"
+      }
+    },
+    "phoneNumber": "0244042538",
+    "addressHome": {
+      "street": "Balcescu",
+      "numberStreet": 2,
+      "building": 3,
+      "floor": 5,
+      "apartment": 23,
+      "county": "Prahova",
+      "city": "Busteni"
+    },
+    "residenceAddress": {
+      "residenceCheck": false,
+      "residenceStreet": "Eruptiei",
+      "residenceNumberStreet": 25,
+      "residenceBuilding": "4A",
+      "residenceFloor": 1,
+      "residenceApartment": 2,
+      "residenceCounty": "Brasov",
+      "residenceCity": "Brasov"
+    },
+    "age": 28,
+    "gender": "Female",
+    "cnp": "2000353534334"
+  }
 ]

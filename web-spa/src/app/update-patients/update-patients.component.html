@@ -42,70 +42,141 @@
               type="text"
               formControlName="lastName"
               class="form-control"
-              onkeydown="return /[a-z, ,-]/i.test(event.key)"
               id="lastName"
+              placeholder="lastName"
             />
-            <label for="lastName" class="col-form-label">LastName</label>
+            <label for="lastName" class="col-form-label">Last Name</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                editPatient.get('lastName')?.invalid &&
+                editPatient.get('lastName')?.touched
+              "
+            >
+              Complete this field with your last name!
+            </span>
           </div>
           <div class="form-floating mb-3">
             <input
               type="text"
               formControlName="fatherInitial"
               style="text-transform: uppercase"
-              onkeydown="return /[A-Z]/i.test(event.key)"
-              maxlength="3"
               class="form-control"
               id="father-initial"
-              value="fatherInitial"
+              placeholder="fatherInitial"
             />
             <label for="father-initial" class="col-form-label"
               >Father Initial</label
             >
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                editPatient.get('fatherInitial')?.invalid &&
+                editPatient.get('fatherInitial')?.touched
+              "
+            >
+              Complete this field with your father initial!
+            </span>
           </div>
           <div class="form-floating mb-3">
             <input
               type="text"
               formControlName="firstName"
-              onkeydown="return /[a-z, ,-]/i.test(event.key)"
               class="form-control"
               id="firstName"
+              placeholder="firstName"
             />
-            <label for="firstName" class="col-form-label">FirstName</label>
+            <label for="firstName" class="col-form-label">First Name</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                editPatient.get('firstName')?.invalid &&
+                editPatient.get('firstName')?.touched
+              "
+            >
+              Complete this field with your first name!
+            </span>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="date"
+              formControlName="birthday"
+              class="form-control"
+              id="birthday"
+              placeholder="birthday"
+              [value]="changeBirthday()"
+            />
+            <label for="birthday" class="col-form-label">Birthday</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                editPatient &&
+                editPatient.get('birthday')?.invalid &&
+                editPatient.get('birthday')?.touched &&
+                editPatient.get('birthday')?.hasError('invalidDate')
+              "
+              >The date is invalid!!</span
+            >
+          </div>
+          <div formGroupName="listPhone">
+            <select
+              class="form-select mb-3"
+              aria-label="Default select example"
+              formControlName="name"
+            >
+              <option value="" selected>- Select -</option>
+              <option
+                [ngValue]="listPhone"
+                *ngFor="let listPhone of listPhones"
+              >
+                {{ listPhone.name }}
+              </option>
+            </select>
           </div>
           <div class="form-floating mb-3">
             <input
               type="text"
-              formControlName="birthday"
-              class="form-control"
-              id="birthday"
-            />
-            <label for="birthday" class="col-form-label">Birthday</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              type="number"
               formControlName="phoneNumber"
-              onKeyPress="if(this.value.length==10) return false;"
               class="form-control"
               id="phone-number"
+              placeholder="phoneNumber"
             />
             <label for="phone-number" class="col-form-label"
               >Phone Number</label
             >
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                editPatient.get('phoneNumber')?.invalid &&
+                editPatient.get('phoneNumber')?.touched
+              "
+            >
+              The first number should be 0 and the second number should be 2,3
+              or 7!!
+            </span>
           </div>
-          <div formGroupName="address">
+          <div formGroupName="addressHome">
             <div class="row">
               <div class="form-floating col-md-4 mb-3">
                 <input
-                  onkeydown="return /[a-z, ,-,.]/i.test(event.key)"
                   type="text"
                   formControlName="street"
                   class="form-control"
                   id="street"
+                  placeholder="street"
                 />
                 <label for="street" class="col-form-label"
                   >Address Street</label
                 >
+                <span
+                  class="help-block text-danger"
+                  *ngIf="
+                    editPatient.get('addressHome.street')?.invalid &&
+                    editPatient.get('addressHome.street')?.touched
+                  "
+                >
+                  Complete this field with your street!
+                </span>
               </div>
               <div class="form-floating col-md-4 mb-3">
                 <input
@@ -113,10 +184,20 @@
                   formControlName="numberStreet"
                   class="form-control"
                   id="numberStreet"
+                  placeholder="numberStreet"
                 />
                 <label for="numberStreet" class="col-form-label"
                   >Number of Street</label
                 >
+                <span
+                  class="help-block text-danger"
+                  *ngIf="
+                    editPatient.get('addressHome.numberStreet')?.invalid &&
+                    editPatient.get('addressHome.numberStreet')?.touched
+                  "
+                >
+                  Complete this field with your number of street!
+                </span>
               </div>
               <div class="form-floating col-md-4 mb-3">
                 <input
@@ -124,8 +205,18 @@
                   formControlName="building"
                   class="form-control"
                   id="building"
+                  placeholder="building"
                 />
                 <label for="building" class="col-form-label">Building</label>
+                <span
+                  class="help-block text-danger"
+                  *ngIf="
+                    editPatient.get('addressHome.building')?.invalid &&
+                    editPatient.get('addressHome.building')?.touched
+                  "
+                >
+                  Complete this field with your building!
+                </span>
               </div>
             </div>
             <div class="row">
@@ -135,19 +226,37 @@
                   formControlName="floor"
                   class="form-control"
                   id="floor"
-                  onKeyPress="if(this.value.length==2) return false;"
+                  placeholder="floor"
                 />
                 <label for="floor" class="col-form-label">Floor</label>
+                <span
+                  class="help-block text-danger"
+                  *ngIf="
+                    editPatient.get('addressHome.floor')?.invalid &&
+                    editPatient.get('addressHome.floor')?.touched
+                  "
+                >
+                  Complete this field with your floor!
+                </span>
               </div>
               <div class="form-floating col-md-6 mb-3">
                 <input
                   type="number"
-                  onKeyPress="if(this.value.length==4) return false;"
                   formControlName="apartment"
                   class="form-control"
                   id="apartment"
+                  placeholder="apartment"
                 />
                 <label for="apartment" class="col-form-label">Apartment</label>
+                <span
+                  class="help-block text-danger"
+                  *ngIf="
+                    editPatient.get('addressHome.apartment')?.invalid &&
+                    editPatient.get('addressHome.apartment')?.touched
+                  "
+                >
+                  Complete this field with your apartment!
+                </span>
               </div>
             </div>
             <div class="row">
@@ -157,8 +266,18 @@
                   formControlName="county"
                   class="form-control"
                   id="county"
+                  placeholder="county"
                 />
                 <label for="county" class="col-form-label">County</label>
+                <span
+                  class="help-block text-danger"
+                  *ngIf="
+                    editPatient.get('addressHome.county')?.invalid &&
+                    editPatient.get('addressHome.county')?.touched
+                  "
+                >
+                  Complete this field with your county!
+                </span>
               </div>
               <div class="form-floating col-md-6 mb-3">
                 <input
@@ -166,59 +285,311 @@
                   formControlName="city"
                   class="form-control"
                   id="city"
-                  onkeydown="return /[a-z, ,-]/i.test(event.key)"
+                  placeholder="city"
                 />
                 <label for="city" class="col-form-label">City</label>
+                <span
+                  class="help-block text-danger"
+                  *ngIf="
+                    editPatient.get('addressHome.city')?.invalid &&
+                    editPatient.get('addressHome.city')?.touched
+                  "
+                >
+                  Complete this field with your city!
+                </span>
+              </div>
+            </div>
+          </div>
+          <div formGroupName="residenceAddress">
+            <div class="form-check" formControlName="residenceCheck">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                name="flexCheckDefault"
+                [checked]="checkResidence"
+                (change)="toggle()"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Residence address is the same like home address
+              </label>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="residenceStreet"
+                    class="form-control"
+                    placeholder="residenceStreet"
+                    id="residenceStreet"
+                  />
+                  <label for="residenceStreet" class="col-form-label"
+                    >Residence Street</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      editPatient.get('residenceAddress.residenceStreet')
+                        ?.invalid &&
+                      editPatient.get('residenceAddress.residenceStreet')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence street!
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    formControlName="residenceNumberStreet"
+                    class="form-control"
+                    id="residenceNumberStreet"
+                    placeholder="residenceNumberStreet"
+                  />
+                  <label for="residenceNumberStreet" class="col-form-label"
+                    >Residence Number</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      editPatient.get('residenceAddress.residenceNumberStreet')
+                        ?.invalid &&
+                      editPatient.get('residenceAddress.residenceNumberStreet')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence number street!
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="residenceBuilding"
+                    placeholder="residenceBuilding"
+                    class="form-control"
+                    id="residenceBuilding"
+                  />
+                  <label for="residenceBuilding" class="col-form-label"
+                    >Residence Building</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      editPatient.get('residenceAddress.residenceBuilding')
+                        ?.invalid &&
+                      editPatient.get('residenceAddress.residenceBuilding')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence building!
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    formControlName="residenceFloor"
+                    placeholder="residenceFloor"
+                    class="form-control"
+                    id="residenceFloor"
+                  />
+                  <label for="residenceFloor" class="col-form-label"
+                    >Residence Floor</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      editPatient.get('residenceAddress.residenceFloor')
+                        ?.invalid &&
+                      editPatient.get('residenceAddress.residenceFloor')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence floor!
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    formControlName="residenceApartment"
+                    placeholder="residenceApartment"
+                    class="form-control"
+                    id="residenceApartment"
+                  />
+                  <label for="residenceApartment" class="col-form-label"
+                    >Residence Apartment</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      editPatient.get('residenceAddress.residenceApartment') &&
+                      editPatient.get('residenceAddress.residenceApartment')
+                        ?.invalid &&
+                      editPatient.get('residenceAddress.residenceApartment')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence apartment!
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="residenceCounty"
+                    class="form-control"
+                    id="residenceCounty"
+                    placeholder="residenceCounty"
+                  />
+                  <label for="residenceCounty" class="col-form-label"
+                    >Residence County</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      editPatient.get('residenceAddress.residenceCounty')
+                        ?.invalid &&
+                      editPatient.get('residenceAddress.residenceCounty')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence county!
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="residenceCity"
+                    placeholder="residenceCity"
+                    class="form-control"
+                    id="residenceCity"
+                  />
+                  <label for="residenceCity" class="col-form-label"
+                    >Residence City</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      editPatient.get('residenceAddress.residenceCity')
+                        ?.invalid &&
+                      editPatient.get('residenceAddress.residenceCity')?.touched
+                    "
+                  >
+                    Complete this field with your residence city!
+                  </span>
+                </div>
               </div>
             </div>
           </div>
           <div class="form-floating mb-3">
             <input
               type="number"
-              onKeyPress="if(this.value.length==3) return false;"
               formControlName="age"
               class="form-control"
               id="age"
+              placeholder="age"
+              [value]="changeAge()"
             />
             <label for="age" class="col-form-label">Age</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              type="text"
-              maxlength="1"
-              onkeyup="this.value = this.value.replace(/[^F/M]/, '')"
-              formControlName="gender"
-              class="form-control"
-              id="gender"
-            />
-            <label for="gender" class="col-form-label">Gender: F or M</label>
             <span
-              class="help-block"
+              class="help-block text-danger"
               *ngIf="
-                !editPatient.get('gender').valid &&
-                editPatient.get('gender').touched
+                editPatient.get('age') &&
+                !editPatient.get('age')?.valid &&
+                editPatient.get('age')?.touched
               "
             >
-              Please complete this field!!
+              Please complete this field with your age!!
+            </span>
+          </div>
+          <div class="form-check gender-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="Female"
+              name="gender"
+              value="Female"
+              formControlName="gender"
+              (change)="checkGender($event)"
+              [checked]="changeGender()"
+            />
+            <label for="Female">Feminin</label>
+          </div>
+          <div class="form-check gender-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="Male"
+              name="gender"
+              value="Male"
+              formControlName="gender"
+              (change)="checkGender($event)"
+              [checked]="changeGender()"
+            />
+            <label for="Male">Masculin</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                editPatient.get('gender') &&
+                !editPatient.get('gender')?.valid &&
+                editPatient.get('gender')?.touched
+              "
+            >
+              Please complete this field with Female or Male!!
             </span>
           </div>
           <div class="form-floating mb-3">
             <input
               type="text"
               formControlName="cnp"
-              maxlength="13"
               class="form-control"
               id="cnp"
+              placeholder="cnp"
             />
             <label for="cnp" class="col-form-label">CNP</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                editPatient.get('cnp')?.invalid &&
+                editPatient.get('cnp')?.touched
+              "
+            >
+              Complete this field with your CNP!
+            </span>
           </div>
           <div class="form-floating mb-3">
             <textarea
               class="form-control"
               formControlName="message"
               id="message-text"
+              placeholder="message"
             ></textarea>
             <label for="message-text" class="col-form-label">Message:</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                editPatient.get('message')?.invalid &&
+                editPatient.get('message')?.touched
+              "
+            >
+              Complete this field with your message!
+            </span>
           </div>
           <div class="modal-footer">
             <button
@@ -232,7 +603,7 @@
               type="submit"
               class="btn btn-primary"
               data-bs-dismiss="modal"
-              [disabled]="editPatient.get('gender').invalid"
+              [disabled]="editPatient.invalid"
             >
               Save
             </button>

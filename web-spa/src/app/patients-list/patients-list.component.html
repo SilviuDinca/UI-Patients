@@ -1,5 +1,39 @@
+<!-- Toast -->
+<div class="position-relative">
+  <div
+    class="toast mt-3 position-absolute top-0 end-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    [ngClass]="toast ? 'd-block bg-success' : 'd-none'"
+    [ngClass]="toastDelete ? 'd-block bg-danger' : 'd-none'"
+  >
+    <div class="toast-header">
+      <strong class="me-auto"
+        >{{
+          toast
+            ? "Patient Added"
+            : null || toastDelete
+            ? "Patient Deleted"
+            : null
+        }}
+      </strong>
+      <small class="text-body-secondary">just now</small>
+    </div>
+    <div class="toast-body text-white">
+      {{
+        toast
+          ? "The patient was added in list of patients!"
+          : null || toastDelete
+          ? "The patient was deleted from list of patients!"
+          : null
+      }}
+    </div>
+  </div>
+</div>
+<!-- List of Patients -->
 <div class="row">
-  <div class="col-xl-8 col-xxl-4">
+  <div class="col-xl-8 col-xxl-5">
     <h3 class="text-center mt-3">List Patients</h3>
     <div class="d-flex justify-content-end">
       <button
@@ -12,6 +46,7 @@
         Add Patient
       </button>
     </div>
+    <!-- Sort Patients -->
     <h4 class="text-muted">Sort by:</h4>
     <div class="d-flex justify-content-evenly my-3">
       <button
@@ -47,6 +82,7 @@
         Gender
       </button>
     </div>
+    <!-- Search Bar -->
     <div class="form-floating my-3">
       <input
         type="text"
@@ -57,46 +93,186 @@
       />
       <label for="floatingInput">Search</label>
     </div>
-    <div class="card mb-3" *ngFor="let patient of filteredPatients">
-      <div class="card-body">
-        <h5 class="card-title text-center">The Pacient {{ patient.id }}</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary text-center">
-          {{ patient.lastName }} {{ patient.firstName }}
-        </h6>
-        <div class="d-flex justify-content-evenly">
-          <p class="card-text"><strong>Age:</strong> {{ patient.age }}</p>
-          <p class="card-text"><strong>Gender:</strong> {{ patient.gender }}</p>
-        </div>
-        <div class="d-flex justify-content-center">
-          <button class="btn btn-success me-3">
-            <i
-              class="fa fa-pencil"
-              aria-hidden="true"
-              (click)="getPatient(patient.id)"
-            ></i>
-          </button>
-          <button
-            class="btn btn-danger me-3"
-            (click)="deletePatient(patient.id)"
-          >
-            <i class="fa fa-trash-o" aria-hidden="true"></i>
-          </button>
-          <button
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal1"
-            data-bs-whatever="1@mdo"
-          >
-            <i class="fa fa-qrcode"></i>
-          </button>
+    <!-- Configure columns table -->
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary mb-3"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModalConfigure"
+    >
+      Configure Columns
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModalConfigure"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content dimension-modal">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Configure Columns
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h4 class="text-muted">Configure columns by:</h4>
+            <div class="form-check d-flex justify-content-center">
+              <input
+                class="form-check-input fs-4"
+                type="radio"
+                name="flexRadioDefault"
+                id="flexRadioDefault1"
+                [checked]="checkRadioDefault"
+                (change)="toggleCheckRadio()"
+                data-bs-dismiss="modal"
+              />
+              <label class="form-check-label fs-4" for="flexRadioDefault1">
+                3 columns
+              </label>
+            </div>
+            <div class="form-check d-flex justify-content-center">
+              <input
+                class="form-check-input fs-4"
+                type="radio"
+                name="flexRadioDefault"
+                id="flexRadioDefault2"
+                (change)="toggleCheckRadio()"
+                [checked]="checkRadioFiveColumns"
+                data-bs-dismiss="modal"
+              />
+              <label class="form-check-label fs-4" for="flexRadioDefault2">
+                5 columns
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <!-- Table List Patients -->
+    <table
+      class="table table-bordered"
+      *ngIf="filteredPatients.length; else noPatients"
+    >
+      <thead *ngIf="checkRadioFiveColumns; else defaultThreeColumns">
+        <tr>
+          <th class="text-center">First Name</th>
+          <th class="text-center">Last Name</th>
+          <th class="text-center">Age</th>
+          <th class="text-center">Gender</th>
+          <th class="text-center">CNP</th>
+          <th></th>
+        </tr>
+      </thead>
+      <ng-template #defaultThreeColumns>
+        <thead>
+          <tr>
+            <th class="text-center">Last Name</th>
+            <th class="text-center">First Name</th>
+            <th class="text-center">Gender</th>
+            <th></th>
+          </tr>
+        </thead>
+      </ng-template>
+      <tbody *ngIf="checkRadioFiveColumns; else defaultThreeColumnsOfTableBody">
+        <tr *ngFor="let patient of filteredPatients">
+          <td class="text-center">{{ patient.lastName }}</td>
+          <td class="text-center">{{ patient.firstName }}</td>
+          <td class="text-center">{{ patient.age }}</td>
+          <td class="text-center">{{ patient.gender }}</td>
+          <td class="text-center">{{ patient.cnp }}</td>
+          <td>
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-success me-3">
+                <i
+                  class="fa fa-pencil"
+                  aria-hidden="true"
+                  (click)="getPatient(patient.id)"
+                ></i>
+              </button>
+              <button
+                class="btn btn-danger me-3"
+                (click)="deletePatient(patient.id)"
+              >
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </button>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal1"
+                data-bs-whatever="1@mdo"
+                (click)="onQrCode(patient)"
+              >
+                <i class="fa fa-qrcode"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <ng-template #defaultThreeColumnsOfTableBody>
+        <tbody>
+          <tr *ngFor="let patient of filteredPatients">
+            <td class="text-center">{{ patient.lastName }}</td>
+            <td class="text-center">{{ patient.firstName }}</td>
+            <td class="text-center">{{ patient.gender }}</td>
+            <td>
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-success me-3">
+                  <i
+                    class="fa fa-pencil"
+                    aria-hidden="true"
+                    (click)="getPatient(patient.id)"
+                  ></i>
+                </button>
+                <button
+                  class="btn btn-danger me-3"
+                  (click)="deletePatient(patient.id)"
+                >
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+                <button
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal1"
+                  data-bs-whatever="1@mdo"
+                  (click)="onQrCode(patient)"
+                >
+                  <i class="fa fa-qrcode"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </ng-template>
+    </table>
+    <ng-template #noPatients>
+      <h3 class="text-muted text-center">No Patients Added</h3>
+    </ng-template>
   </div>
-  <div class="col-xl-4 col-xxl-8">
+  <div class="col-xl-4 col-xxl-7">
     <app-patients-details
       [patientDetail]="patientDetail"
+      [addPatient]="addPatient"
       [patients]="patients"
+      [checkResidence]="checkResidence"
+      [residenceStreet]="residenceStreet"
+      [residenceNumberStreet]="residenceNumberStreet"
+      [residenceBuilding]="residenceBuilding"
+      [residenceFloor]="residenceFloor"
+      [residenceApartment]="residenceApartment"
+      [residenceCounty]="residenceCounty"
+      [residenceCity]="residenceCity"
+      (toggle)="toggle()"
     ></app-patients-details>
   </div>
 </div>
@@ -123,10 +299,8 @@
       </div>
       <div class="modal-body d-flex justify-content-center">
         <qrcode
-          [qrdata]="
-            'https://example.com/02B859FE-6919-4D97-9779-303AADA1F82E|12345|MASCULIN'
-          "
-          [width]="256"
+          [qrdata]="qrCode"
+          [width]="75"
           [errorCorrectionLevel]="'M'"
         ></qrcode>
       </div>
@@ -163,81 +337,143 @@
             <input
               type="text"
               formControlName="lastName"
+              placeholder="lastname"
               class="form-control"
-              onkeydown="return /[a-z, ,-]/i.test(event.key)"
               id="lastName"
             />
-            <label for="lastName" class="col-form-label">LastName</label>
+            <label for="lastName" class="col-form-label">Last Name</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                addPatient.get('lastName')?.invalid &&
+                addPatient.get('lastName')?.touched
+              "
+            >
+              Complete this field with your last name!
+            </span>
           </div>
           <div class="form-floating mb-3">
             <input
               type="text"
               formControlName="fatherInitial"
+              placeholder="fatherInitial"
               class="form-control"
               id="father-initial"
               style="text-transform: uppercase"
-              maxlength="3"
-              onkeydown="return /[A-Z]/i.test(event.key)"
             />
             <label for="father-initial" class="col-form-label"
               >Father Initial</label
             >
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                addPatient.get('fatherInitial')?.invalid &&
+                addPatient.get('fatherInitial')?.touched
+              "
+            >
+              Complete this field with your father initial!
+            </span>
           </div>
           <div class="form-floating mb-3">
             <input
               type="text"
               formControlName="firstName"
-              onkeydown="return /[a-z, ,-]/i.test(event.key)"
               class="form-control"
               id="firstName"
+              placeholder="firstName"
             />
-            <label for="firstName" class="col-form-label">FirstName</label>
+            <label for="firstName" class="col-form-label">First Name</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                addPatient.get('firstName')?.invalid &&
+                addPatient.get('firstName')?.touched
+              "
+            >
+              Complete this field with your first name!
+            </span>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="date"
+              formControlName="birthday"
+              class="form-control"
+              id="birthday"
+              placeholder="birthday"
+              [value]="changeBirthday()"
+            />
+            <label for="birthday" class="col-form-label">Birthday</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                addPatient &&
+                addPatient.get('birthday')?.invalid &&
+                addPatient.get('birthday')?.touched &&
+                addPatient.get('birthday')?.hasError('invalidDate')
+              "
+              >The date is invalid!!</span
+            >
+          </div>
+          <div formGroupName="listPhone">
+            <select
+              class="form-select mb-3"
+              aria-label="Default select example"
+              formControlName="name"
+            >
+              <option value="" selected>- Select -</option>
+              <option
+                [ngValue]="listPhone"
+                *ngFor="let listPhone of listPhones"
+              >
+                {{ listPhone.name }}
+              </option>
+            </select>
           </div>
           <div class="form-floating mb-3">
             <input
               type="text"
-              formControlName="birthday"
-              class="form-control"
-              id="birthday"
-            />
-            <label for="birthday" class="col-form-label">Birthday</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              type="number"
               formControlName="phoneNumber"
               class="form-control"
-              onKeyPress="if(this.value.length==10) return false; "
               id="phone-number"
+              placeholder="phoneNumber"
             />
             <label for="phone-number" class="col-form-label"
-              >Phone Number</label
+              >Phone Number*</label
             >
             <span
               class="help-block text-danger"
               *ngIf="
-                !addPatient.get('phoneNumber').valid &&
-                addPatient.get('phoneNumber').touched
+                addPatient.get('phoneNumber')?.invalid &&
+                addPatient.get('phoneNumber')?.touched
               "
             >
               The first number should be 0 and the second number should be 2,3
               or 7!!
             </span>
           </div>
-          <div formGroupName="address">
+          <div formGroupName="addressHome">
             <div class="row">
               <div class="col-md-4">
                 <div class="form-floating mb-3">
                   <input
                     type="text"
-                    onkeydown="return /[a-z, ,-,.]/i.test(event.key)"
                     formControlName="street"
                     class="form-control"
+                    placeholder="street"
                     id="street"
                   />
                   <label for="street" class="col-form-label"
                     >Address Street</label
                   >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('addressHome.street')?.invalid &&
+                      addPatient.get('addressHome.street')?.touched
+                    "
+                  >
+                    Complete this field with your street!
+                  </span>
                 </div>
               </div>
               <div class="col-md-4">
@@ -246,11 +482,21 @@
                     type="number"
                     formControlName="numberStreet"
                     class="form-control"
+                    placeholder="numberOfStreet"
                     id="numberStreet"
                   />
                   <label for="numberStreet" class="col-form-label"
                     >Number of Street</label
                   >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('addressHome.numberStreet')?.invalid &&
+                      addPatient.get('addressHome.numberStreet')?.touched
+                    "
+                  >
+                    Complete this field with your number of street!
+                  </span>
                 </div>
               </div>
               <div class="col-md-4">
@@ -259,9 +505,19 @@
                     type="text"
                     formControlName="building"
                     class="form-control"
+                    placeholder="building"
                     id="building"
                   />
                   <label for="building" class="col-form-label">Building</label>
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('addressHome.building')?.invalid &&
+                      addPatient.get('addressHome.building')?.touched
+                    "
+                  >
+                    Complete this field with your building!
+                  </span>
                 </div>
               </div>
             </div>
@@ -273,23 +529,41 @@
                     formControlName="floor"
                     class="form-control"
                     id="floor"
-                    onKeyPress="if(this.value.length==2) return false;"
+                    placeholder="floor"
                   />
                   <label for="floor" class="col-form-label">Floor</label>
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('addressHome.floor')?.invalid &&
+                      addPatient.get('addressHome.floor')?.touched
+                    "
+                  >
+                    Complete this field with your floor!
+                  </span>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-floating mb-3">
                   <input
                     type="number"
-                    onKeyPress="if(this.value.length==4) return false;"
                     formControlName="apartment"
                     class="form-control"
                     id="apartment"
+                    placeholder="apartment"
                   />
                   <label for="apartment" class="col-form-label"
                     >Apartment</label
                   >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('addressHome.apartment')?.invalid &&
+                      addPatient.get('addressHome.apartment')?.touched
+                    "
+                  >
+                    Complete this field with your apartment!
+                  </span>
                 </div>
               </div>
             </div>
@@ -301,8 +575,18 @@
                     formControlName="county"
                     class="form-control"
                     id="county"
+                    placeholder="county"
                   />
                   <label for="county" class="col-form-label">County</label>
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('addressHome.county')?.invalid &&
+                      addPatient.get('addressHome.county')?.touched
+                    "
+                  >
+                    Complete this field with your county!
+                  </span>
                 </div>
               </div>
               <div class="col-md-6">
@@ -312,9 +596,216 @@
                     formControlName="city"
                     class="form-control"
                     id="city"
-                    onkeydown="return /[a-z, ,-]/i.test(event.key)"
+                    placeholder="city"
                   />
                   <label for="city" class="col-form-label">City</label>
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('addressHome.city')?.invalid &&
+                      addPatient.get('addressHome.city')?.touched
+                    "
+                  >
+                    Complete this field with your city!
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div formGroupName="residenceAddress">
+            <div class="form-check" formControlName="residenceCheck">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                name="flexCheckDefault"
+                [checked]="checkResidence"
+                (change)="toggle()"
+                placeholder="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Residence address is the same like home address
+              </label>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="residenceStreet"
+                    id="residenceStreet"
+                    name="residenceStreet"
+                    placeholder="residenceStreet"
+                  />
+                  <label for="residenceStreet" class="col-form-label"
+                    >Residence Street</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('residenceAddress.residenceStreet')
+                        ?.invalid &&
+                      addPatient.get('residenceAddress.residenceStreet')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence street!
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    formControlName="residenceNumberStreet"
+                    class="form-control"
+                    id="residenceNumberStreet"
+                    placeholder="residenceNumberStreet"
+                  />
+                  <label for="residenceNumberStreet" class="col-form-label"
+                    >Residence Number</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('residenceAddress.residenceNumberStreet')
+                        ?.invalid &&
+                      addPatient.get('residenceAddress.residenceNumberStreet')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence number street!
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="residenceBuilding"
+                    class="form-control"
+                    id="residenceBuilding"
+                    placeholder="residenceBuilding"
+                  />
+                  <label for="residenceBuilding" class="col-form-label"
+                    >Residence Building</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('residenceAddress.residenceBuilding')
+                        ?.invalid &&
+                      addPatient.get('residenceAddress.residenceBuilding')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence building!
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    formControlName="residenceFloor"
+                    class="form-control"
+                    id="residenceFloor"
+                    placeholder="residenceFloor"
+                  />
+                  <label for="residenceFloor" class="col-form-label"
+                    >Residence Floor</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('residenceAddress.residenceFloor')
+                        ?.invalid &&
+                      addPatient.get('residenceAddress.residenceFloor')?.touched
+                    "
+                  >
+                    Complete this field with your residence floor!
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    formControlName="residenceApartment"
+                    class="form-control"
+                    id="residenceApartment"
+                    placeholder="residenceApartment"
+                  />
+                  <label for="residenceApartment" class="col-form-label"
+                    >Residence Apartment</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('residenceAddress.residenceApartment') &&
+                      addPatient.get('residenceAddress.residenceApartment')
+                        ?.invalid &&
+                      addPatient.get('residenceAddress.residenceApartment')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence apartment!
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="residenceCounty"
+                    class="form-control"
+                    id="residenceCounty"
+                    placeholder="residenceCounty"
+                  />
+                  <label for="residenceCounty" class="col-form-label"
+                    >Residence County</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('residenceAddress.residenceCounty')
+                        ?.invalid &&
+                      addPatient.get('residenceAddress.residenceCounty')
+                        ?.touched
+                    "
+                  >
+                    Complete this field with your residence county!
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    formControlName="residenceCity"
+                    class="form-control"
+                    id="residenceCity"
+                    placeholder="residenceCity"
+                  />
+                  <label for="residenceCity" class="col-form-label"
+                    >Residence City</label
+                  >
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      addPatient.get('residenceAddress.residenceCity')
+                        ?.invalid &&
+                      addPatient.get('residenceAddress.residenceCity')?.touched
+                    "
+                  >
+                    Complete this field with your residence city!
+                  </span>
                 </div>
               </div>
             </div>
@@ -322,50 +813,95 @@
           <div class="form-floating mb-3">
             <input
               type="number"
-              onKeyPress="if(this.value.length==3) return false;"
               formControlName="age"
               class="form-control"
               id="age"
+              placeholder="age"
+              [value]="changeAge()"
             />
             <label for="age" class="col-form-label">Age</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              type="text"
-              maxlength="1"
-              onkeyup="this.value = this.value.replace(/[^F/M]/, '')"
-              formControlName="gender"
-              class="form-control"
-              id="gender"
-            />
-            <label for="gender" class="col-form-label">Gender: F or M</label>
             <span
               class="help-block text-danger"
               *ngIf="
-                !addPatient.get('gender').valid &&
-                addPatient.get('gender').touched
+                addPatient.get('age') &&
+                !addPatient.get('age')?.valid &&
+                addPatient.get('age')?.touched
               "
             >
-              Please complete this field!!
+              Please complete this field with your age!!
+            </span>
+          </div>
+          <div class="form-check gender-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="Female"
+              name="gender"
+              value="Female"
+              formControlName="gender"
+              (change)="checkGender($event)"
+              [checked]="changeGender()"
+            />
+            <label for="Female">Feminin</label>
+          </div>
+          <div class="form-check gender-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="Male"
+              name="gender"
+              value="Male"
+              formControlName="gender"
+              (change)="checkGender($event)"
+              [checked]="changeGender()"
+            />
+            <label for="Male">Masculin</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                addPatient.get('gender') &&
+                !addPatient.get('gender')?.valid &&
+                addPatient.get('gender')?.touched
+              "
+            >
+              Please complete this field with Female or Male!!
             </span>
           </div>
           <div class="form-floating mb-3">
             <input
               type="text"
               formControlName="cnp"
-              maxlength="13"
               class="form-control"
               id="cnp"
+              placeholder="cnp"
             />
             <label for="cnp" class="col-form-label">CNP</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                addPatient.get('cnp')?.invalid && addPatient.get('cnp')?.touched
+              "
+            >
+              Complete this field with your CNP!
+            </span>
           </div>
           <div class="form-floating mb-3">
             <textarea
               class="form-control"
               formControlName="message"
               id="message-text"
+              placeholder="message"
             ></textarea>
             <label for="message-text" class="col-form-label">Message:</label>
+            <span
+              class="help-block text-danger"
+              *ngIf="
+                addPatient.get('message')?.invalid &&
+                addPatient.get('message')?.touched
+              "
+            >
+              Complete this field with your message!
+            </span>
           </div>
           <div class="modal-footer">
             <button
@@ -379,7 +915,7 @@
               type="submit"
               class="btn btn-primary"
               data-bs-dismiss="modal"
-              [disabled]="addPatient.get('gender').invalid"
+              [disabled]="addPatient.invalid"
             >
               Send message
             </button>

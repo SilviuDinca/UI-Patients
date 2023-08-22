@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { PatientsListComponent } from './patients-list/patients-list.component';
@@ -20,9 +20,12 @@ import { QRCodeModule } from 'angularx-qrcode';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    QRCodeModule
+    QRCodeModule,
   ],
   providers: [],
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

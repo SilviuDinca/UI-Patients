@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://Silviu23@bitbucket.org/info-world/2023-ui-pacienti-silviu-dinca.git
+	fetch = +refs/*:refs/*
+	mirror = true

@@ -17,36 +17,70 @@
       <td>{{ patientDetail[0].birthday }}</td>
     </tr>
     <tr>
+      <th scope="row">List Phone</th>
+      <td>{{ patientDetail[0].listPhone.name.name }}</td>
+    </tr>
+    <tr>
       <th scope="row">Phone Number</th>
       <td>{{ patientDetail[0].phoneNumber }}</td>
     </tr>
     <tr>
       <th scope="row">Address Street</th>
-      <td>{{ patientDetail[0].address.street }}</td>
+      <td>{{ patientDetail[0].addressHome.street }}</td>
     </tr>
     <tr>
       <th scope="row">Number of Street</th>
-      <td>{{ patientDetail[0].address.numberStreet }}</td>
+      <td>{{ patientDetail[0].addressHome.numberStreet }}</td>
     </tr>
     <tr>
       <th scope="row">Building</th>
-      <td>{{ patientDetail[0].address.building }}</td>
+      <td>{{ patientDetail[0].addressHome.building }}</td>
     </tr>
     <tr>
       <th scope="row">Floor</th>
-      <td>{{ patientDetail[0].address.floor }}</td>
+      <td>{{ patientDetail[0].addressHome.floor }}</td>
     </tr>
     <tr>
       <th scope="row">Apartment</th>
-      <td>{{ patientDetail[0].address.apartment }}</td>
+      <td>{{ patientDetail[0].addressHome.apartment }}</td>
     </tr>
     <tr>
       <th scope="row">County</th>
-      <td>{{ patientDetail[0].address.county }}</td>
+      <td>{{ patientDetail[0].addressHome.county }}</td>
     </tr>
     <tr>
       <th scope="row">City</th>
-      <td>{{ patientDetail[0].address.city }}</td>
+      <td>{{ patientDetail[0].addressHome.city }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Residence Street</th>
+      <td>
+        {{ residenceStreet }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Residence Number of Street</th>
+      <td>{{ residenceNumberStreet }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Residence Building</th>
+      <td>{{ residenceBuilding }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Residence Floor</th>
+      <td>{{ residenceFloor }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Residence Apartment</th>
+      <td>{{ residenceApartment }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Residence County</th>
+      <td>{{ residenceCounty }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Residence City</th>
+      <td>{{ residenceCity }}</td>
     </tr>
     <tr>
       <th scope="row">Age</th>
@@ -65,5 +99,13 @@
     [patientDetail]="patientDetail"
     (btnUpdate)="btnParentUpdate($event)"
     [patients]="patients"
+    [checkResidence]="checkResidence"
+    [residenceStreet]="residenceStreet"
+    [residenceNumberStreet]="residenceNumberStreet"
+    [residenceBuilding]="residenceBuilding"
+    [residenceFloor]="residenceFloor"
+    [residenceApartment]="residenceApartment"
+    [residenceCounty]="residenceCounty"
+    [residenceCity]="residenceCity"
   ></app-update-patients>
 </table>
